@@ -1,20 +1,37 @@
 # nvim-markdown-codeblocks
 
-A simple Neovim plugin for handling markdown code blocks effectively. This plugin enhances the editing experience of markdown files by providing syntax highlighting and better formatting options for code snippets. 
+A Neovim plugin for editing markdown code blocks in scratch buffers, with auto-sync back to the original markdown file.
 
 ## Features
-- Syntax highlighting for various programming languages
-- Automatic formatting of code blocks
-- Easy configuration options
+
+- Opens markdown code blocks in a scratch buffer for isolated editing
+- Auto-syncs changes to the original markdown on buffer close or with a command
+- Sets correct filetype for the scratch buffer (enables LSP, etc.)
+- Manual sync and finish commands: `:SyncBack` and `:FinishEdit`
+- Only acts on code blocks under the cursor with a specified language
 
 ## Installation
-You can install this plugin using your favorite plugin manager. For example, using [packer.nvim]:
+
+Using [lazy.nvim]:
+
 ```lua
-use 'xpcoffee/nvim-markdown-codeblocks'
+{
+  'xpcoffee/nvim-markdown-codeblocks',
+  config = function()
+    require('nvim-markdown-codeblocks').setup()
+  end,
+}
 ```
 
 ## Usage
-After installation, you can start using the features of the plugin right away. 
 
-## Contributing
-Feel free to submit issues and pull requests to improve the plugin!
+Place your cursor inside a markdown code block with a language fence (e.g., ```lua). Then run:
+
+```
+:EditCodeBlock
+```
+
+This opens the block in a scratch buffer. You can:
+
+- Use `:SyncBack` to manually sync changes to your markdown file
+- Use `:FinishEdit` (or simply close the buffer) to sync and finish editing
